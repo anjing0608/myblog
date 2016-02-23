@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Blog</title>
+<link rel="stylesheet" href="/stylesheets/style.css">
+<script src="http://cdn.bootcss.com/jquery/2.2.0/jquery.js"></script>
+<script src="/javascripts/main.js"></script>
+</head>
+<body>
+
+
+<header class="left" id="left">
+    
+    	<div class="sns-icon">
+        	<ul>
+            	<li class="sns-weibo"><span>展开微博窗口</span></li>
+                <li class="sns-qq"><span>QQ:保密</span></li>
+                <li class="sns-weichat"><span>微信:保密</span></li>
+                <li class="icon-category"><span>展开分类目录</span></li>
+            </ul>
+        </div>
+        
+        <div class="to-top topbtnhide"><i class="fa fa-angle-up"></i></div>
+    	<div class="face-area">
+        	<div class="face-img">
+            <a href="http://xn--4gqq21i.cn" alt="回到首页" title="回到首页">
+            				 <img style="width:100%;height:auto;border-radius: 50%;" src="/images/icon.jpg">
+				            </a>
+            </div>
+            <div class="face-name">TB南博丸</div>
+             <div class="face-info">做有情怀的全栈攻城狮 </div>
+        </div>
+    	<div class="search">
+        	<form method="get" id="searchform" class="searchform" action="/search" role="search">
+<input type="text" name="keywords" id="s" placeholder="Your Keywords">
+            <input type="submit" value="">
+</form>        </div>
+        <nav class="nav">
+	<ul>
+		<li><a href="/">主页</a></li>
+		<!-- <li><a href="/archive">存档</a></li> -->
+		<!-- <li><a href="/tags">标签</a></li> -->
+        <li><a href="/music">我的音乐</a></li>
+		<!-- <li><a href="/links">友情链接</a></li> -->
+		<% if (user) { %>
+		<li><a href="/upload">上传</a></li>
+		<li><a href="/post">发表</a></li>
+		<li><a href="/logout">登出</a></li>
+		<% } else { %>
+		<li><a href="/login">登录</a></li>
+		<li><a href="/reg">注册</a></li>
+		<% } %>
+		
+	</ul>
+</nav>
+        
+    </header>
+<article class="main" id="main">
+
+<% if (success) { %>
+  <div><%= success %></div>
+<% } %>
+<% if (error) { %>
+  <div><%= error %> </div>
+<% } %>
