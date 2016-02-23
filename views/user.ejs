@@ -2,7 +2,7 @@
 <% posts.forEach(function (post, index) { %>
 <div class="txt">
   <h1><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h1>
-  <div class="content"><%- post.post %></div>
+  <div class="content s_content"><%- post.post %></div>
   <div class="bot">
   <div class="info">
     作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 

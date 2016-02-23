@@ -126,11 +126,36 @@ router.get('/u/:name/:day/:title', function (req, res) {
   });
 });
 
+router.post('/edit/:name/:day/:title', checkLogin);
+router.post('/edit/:name/:day/:title', function (req, res) {
+  var currentUser = req.session.user;
+  Post.update(currentUser.name, req.params.day, req.params.title, req.body.post, function (err) {
+    var url = encodeURI('/u/' + req.params.name + '/' + req.params.day + '/' + req.params.title);
+    if (err) {
+      req.flash('error', err);
+      return res.redirect(url);//出错！返回文章页
+    }
+    req.flash('success', '修改成功!');
+    res.redirect(url);//成功！返回文章页
+  });
+});
+router.get('/remove/:name/:day/:title', checkLogin);
+router.get('/remove/:name/:day/:title', function (req, res) {
+  var currentUser = req.session.user;
+  Post.remove(currentUser.name, req.params.day, req.params.title, function (err) {
+    if (err) {
+      req.flash('error', err);
+      return res.redirect('back');
+    }
+    req.flash('success', '删除成功!');
+    res.redirect('/');
+  });
+});
 /*post*/
 router.get('/post', checkLogin);
 router.get('/post', function(req, res) {
   res.render('post', { 
-title: '发表',
+      title: '发表',
       user: req.session.user,
       success: req.flash('success').toString(),
       error: req.flash('error').toString()
