@@ -1,5 +1,5 @@
 var mongodb = require('./db');
-var markdown = require('markdown').markdown;
+//var markdown = require('markdown').markdown;
 var crypto = require('crypto');
 
 function Post(name, title, post){
@@ -81,9 +81,9 @@ Post.getAll = function(name, callback){
         	if (err) {
           		return callback(err);//失败！返回 err
         	}
-        	docs.forEach(function (doc){
-      			doc.post = markdown.toHTML(doc.post);
-      		});
+        	//docs.forEach(function (doc){
+      		//	doc.post = markdown.toHTML(doc.post);
+      		//});
         	callback(null, docs);//成功！以数组形式返回查询的结果
       });
     });
@@ -110,7 +110,8 @@ Post.search =function(keywords, callback){
 			},{
 				'name': 1,
 				'time': 1,
-				'title': 1
+				'title': 1,
+				'post': 1
 			}).sort({
 				time: -1
 			}).toArray(function (err, docs){
@@ -147,14 +148,41 @@ Post.getOne = function(name, day, title, callback){
           		return callback(err);//失败！返回 err
         	}
         	
-      			doc.post = markdown.toHTML(doc.post);
+      			//doc.post = markdown.toHTML(doc.post);
       		
         	callback(null, doc);//成功！以数组形式返回查询的结果
       		});
 		})
 	})
 };
-
+//返回原始发表的内容（markdown 格式）
+Post.edit = function(name, day, title, callback) {
+	//打开数据库
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		//读取 posts 集合
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			//根据用户名、发表日期及文章名进行查询
+			collection.findOne({
+				"name": name,
+				"time.day": day,
+				"title": title
+			}, function (err, doc) {
+				mongodb.close();
+				if (err) {
+					return callback(err);
+				}
+				callback(null, doc);//返回查询的一篇文章（markdown 格式）
+			});
+		});
+	});
+};
 //更新一篇文章及其相关信息
 Post.update = function(name, day, title, post, callback) {
 	//打开数据库
@@ -181,6 +209,44 @@ Post.update = function(name, day, title, post, callback) {
 					return callback(err);
 				}
 				callback(null);
+			});
+		});
+	});
+};
+
+//一次获取十篇文章
+Post.getTen = function(name, page, callback) {
+	//打开数据库
+	mongodb.open(function (err, db) {
+		if (err) {
+			return callback(err);
+		}
+		//读取 posts 集合
+		db.collection('posts', function (err, collection) {
+			if (err) {
+				mongodb.close();
+				return callback(err);
+			}
+			var query = {};
+			if (name) {
+				query.name = name;
+			}
+			//使用 count 返回特定查询的文档数 total
+			collection.count(query, function (err, total) {
+				//根据 query 对象查询，并跳过前 (page-1)*10 个结果，返回之后的 10 个结果
+				collection.find(query, {
+					skip: (page - 1)*10,
+					limit: 10
+				}).sort({
+					time: -1
+				}).toArray(function (err, docs) {
+					mongodb.close();
+					if (err) {
+						return callback(err);
+					}
+
+					callback(null, docs, total);
+				});
 			});
 		});
 	});

@@ -1,20 +1,18 @@
 <%- include header %>
 <% posts.forEach(function (post, index) { %>
 <div class="txt">
-  <h1><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h1>
+  <b><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></b>
   <div class="content s_content"><%- post.post %></div>
   <div class="bot">
   <div class="info">
     作者：<a href="/u/<%= post.name %>"><%= post.name %></a> | 
     日期：<%= post.time.minute %>
     </div>
-    <p>
-      <span><a class="edit" href="/edit/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">编辑</a></span>
-      <span><a class="edit" href="/remove/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">删除</a></span>
-    </p>
+
     <div class="btn"><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">+阅读全文</a></div>
   </div>
   
   </div>
 <% }) %>
+<%- include paging %>
 <%- include footer %>

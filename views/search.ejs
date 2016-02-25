@@ -3,12 +3,21 @@
 <ul class="archive">
 <% var lastYear = 0 %>
 <% posts.forEach(function (post, index) { %>
-  <% if(lastYear != post.time.year) { %>
-    <li><h3><%= post.time.year %></h3></li>
-  <% lastYear = post.time.year } %>
-    <li><time><%= post.time.day %></time></li>
-    <li><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></li>
+  <div class="txt">
+    <b><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></b>
+    <div class="content s_content"><%- post.post %></div>
+    <div class="bot">
+      <div class="info">
+        作者：<a href="/u/<%= post.name %>"><%= post.name %></a> |
+        日期：<%= post.time.minute %>
+      </div>
+      <div class="btn"><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>">+阅读全文</a></div>
+    </div>
+
+  </div>
 <% }) %>
 </ul>
+
+
 
 <% include footer %>

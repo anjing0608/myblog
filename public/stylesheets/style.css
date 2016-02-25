@@ -23,7 +23,7 @@ a:hover{color:#dd0000;text-decoration:none;}
     position: relative;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
 }
-.txt h1{ border-left:4px solid #dd0000; height: 30px; line-height: 30px; padding-left: 20px; margin-bottom: 10px; font-weight: normal; font-size: 18px;}
+.txt b{ border-left:4px solid #dd0000; height: 30px; line-height: 30px; padding-left: 20px; margin-bottom: 10px; font-weight: normal; font-size: 18px;}
 .txt .content{     width: auto;
     padding: 20px;
     border-top: 1px solid #dee1e0;
@@ -621,3 +621,9 @@ transform:scale(1, 1)
 .mejs-controls .mejs-time-rail span { cursor: pointer; -webkit-border-radius: 0px 0px 2px 2px; -moz-border-radius: 0px 0px 2px 2px; border-radius: 0px 0px 2px 2px; }
 .mejs-controls .mejs-time-rail .mejs-time-total { background: #999999 !important; }
 .mejs-controls .mejs-time-rail .mejs-time-loaded { width: 0; background: #cccccc !important; }
+
+
+
+.prepage a{float:left;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
+.nextpage a{float:right;text-decoration:none;padding:.5em 1em;color:#ff0000;font-weight:bold;}
+.prepage a:hover,.nextpage a:hover{text-decoration:none;background-color:#ff0000;color:#f9f9f9;-webkit-transition:color .2s linear;}

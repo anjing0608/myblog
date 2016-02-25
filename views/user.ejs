@@ -1,7 +1,7 @@
 <%- include header %>
 <% posts.forEach(function (post, index) { %>
 <div class="txt">
-  <h1><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></h1>
+  <b><a href="/u/<%= post.name %>/<%= post.time.day %>/<%= post.title %>"><%= post.title %></a></b>
   <div class="content s_content"><%- post.post %></div>
   <div class="bot">
   <div class="info">
@@ -13,4 +13,5 @@
   
   </div>
 <% }) %>
+<%- include paging %>
 <%- include footer %>
